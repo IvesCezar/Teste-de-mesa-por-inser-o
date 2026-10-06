@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1e8">
+  <title>Teste de mesa | Ordenação por inserção</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Teste de mesa, início">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>caderno<span class="brand-light">.algoritmos</span></span>
+    </a>
+    <span class="topbar-note"><span class="live-dot"></span> LABORATÓRIO INTERATIVO</span>
+  </header>
+
+  <main id="inicio">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow"><span>01</span> ORDENAÇÃO POR INSERÇÃO</p>
+      <h1 id="page-title">Ordenar fica mais claro <em>passo a passo.</em></h1>
+      <p class="intro-copy">Acompanhe cada comparação, entenda os deslocamentos e veja como a lista encontra seu lugar.</p>
+    </section>
+
+    <section class="input-panel" aria-label="Dados para a simulação">
+      <div class="input-heading">
+        <div>
+          <span class="section-kicker">MONTE SUA LISTA</span>
+          <label for="numbers">Números inteiros</label>
+        </div>
+        <span class="input-limit">ATÉ 40 VALORES</span>
+      </div>
+      <form id="sort-form" novalidate>
+        <div class="input-row">
+          <input id="numbers" name="numbers" type="text" value="8, 3, 5, 1, 9, 2" autocomplete="off" spellcheck="false" aria-describedby="input-help input-error">
+          <button class="run-button" type="submit"><span>Iniciar simulação</span><span aria-hidden="true">↗</span></button>
+        </div>
+        <div class="input-foot">
+          <span id="input-help">Separe os números com espaço ou vírgula.</span>
+          <button class="sample-button" id="sample-button" type="button">Usar exemplo</button>
+        </div>
+        <p class="error-message" id="input-error" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="workspace" aria-label="Simulação da ordenação">
+      <div class="history-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="section-kicker">VISÃO GERAL</span>
+            <h2>Trilha de execução</h2>
+          </div>
+          <span class="step-count" id="step-count">0 ETAPAS</span>
+        </div>
+        <div class="table-scroll" tabindex="0" aria-label="Tabela de etapas; role horizontalmente para ver todas as colunas">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Etapa</th>
+                <th scope="col">Chave</th>
+                <th scope="col">Comparação</th>
+                <th scope="col">Ação</th>
+                <th scope="col">Lista neste momento</th>
+              </tr>
+            </thead>
+            <tbody id="trace-rows"></tbody>
+          </table>
+          <div class="empty-state" id="empty-state" hidden>Digite uma lista para acompanhar a ordenação.</div>
+        </div>
+        <div class="legend"><span class="legend-key">CHAVE</span> número que está sendo inserido <span class="legend-divider">/</span> <span class="legend-gap">···</span> espaço temporário</div>
+      </div>
+
+      <aside class="detail-panel" aria-live="polite" aria-label="Explicação da etapa selecionada">
+        <div class="detail-topline">
+          <span class="section-kicker">AGORA</span>
+          <span class="stage-pill" id="stage-pill">ETAPA 0</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div>
+        <div class="detail-title-row">
+          <div>
+            <p class="detail-overline" id="detail-overline">ANTES DE COMEÇAR</p>
+            <h2 id="detail-title">Sua lista original</h2>
+          </div>
+          <span class="detail-index" id="detail-index">01</span>
+        </div>
+
+        <div class="vector-block">
+          <div class="vector-label">
+            <span>LISTA ATUAL</span>
+            <span class="vector-meta"><span id="vector-caption">estado inicial</span><span class="vector-key" id="vector-key" hidden></span></span>
+          </div>
+          <div class="vector" id="current-vector" aria-label="Valores da lista nesta etapa"></div>
+        </div>
+
+        <div class="explanation-block">
+          <span class="explanation-mark" aria-hidden="true">i</span>
+          <div>
+            <h3>O que está acontecendo?</h3>
+            <p id="explanation">Comece com uma lista de números para ver cada movimento explicado.</p>
+          </div>
+        </div>
+
+        <div class="comparison-box" id="comparison-box" hidden>
+          <span class="comparison-label">DECISÃO DESTA COMPARAÇÃO</span>
+          <p id="comparison-text"></p>
+        </div>
+
+        <div class="detail-footer">
+          <div class="navigation">
+            <button class="nav-button" id="previous-button" type="button" aria-label="Etapa anterior" title="Etapa anterior">←</button>
+            <button class="nav-button nav-next" id="next-button" type="button" aria-label="Próxima etapa" title="Próxima etapa">→</button>
+            <span class="navigation-hint">Use as setas para avançar</span>
+          </div>
+          <button class="result-button" id="result-button" type="button">Ver resultado final <span aria-hidden="true">↗</span></button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="summary-strip" aria-label="Resumo da simulação">
+      <div class="summary-label"><span class="summary-dot"></span> RESUMO DA SIMULAÇÃO</div>
+      <div class="summary-item"><strong id="summary-items">0</strong><span>valores</span></div>
+      <div class="summary-item"><strong id="summary-comparisons">0</strong><span>comparações</span></div>
+      <div class="summary-item"><strong id="summary-shifts">0</strong><span>deslocamentos</span></div>
+      <div class="summary-result" id="summary-result">A lista ordenada aparece aqui.</div>
+    </section>
+
+    <footer class="page-footer"><span>ORDENAÇÃO ESTÁVEL</span><span>Insertion sort <b>·</b> cresce uma posição ordenada por vez</span></footer>
+  </main>
+</body>
+</html>
